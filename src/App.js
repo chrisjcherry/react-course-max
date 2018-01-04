@@ -41,12 +41,32 @@ class App extends Component {
 
   render() {
     const style = {
-      backgrounColor: 'white',
+      textAlign: 'center',
+      backgroundColor: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer'
     };
+
+    let persons = null;
+
+    if ( this.state.showPersons ) {
+      persons = (
+        <div>
+          <Person 
+            name={this.state.persons[0].name} 
+            age={this.state.persons[0].age} />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind(this, 'Chris!')}
+            changed={this.nameChangedHandler} />
+          <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
+        </div>
+      )
+    }
+
     return (
       <div className="App">
           <h1>Hi, I'm a React App</h1>
@@ -54,18 +74,7 @@ class App extends Component {
           <button
             style ={style}
             onClick = { this.togglePeronsHandler }>Toggle show people</button>
-          {
-            this.state.showPersons ?
-              <div>
-                <Person name={this.state.persons[0].name} age={this.state.persons[0].age}>Myhobbies: Running</Person>
-                <Person
-                  name={this.state.persons[1].name}
-                  age={this.state.persons[1].age}
-                  click={this.switchNameHandler.bind(this, 'Chris!')}
-                  changed={this.nameChangedHandler} />
-                <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
-              </div> : null
-          }
+          { persons }
       </div>
     );
     // equivalent to...
